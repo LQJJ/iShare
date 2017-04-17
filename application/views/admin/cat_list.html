@@ -1,0 +1,365 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>SHOP 管理中心 - 商品分类 </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="application/views/admin/styles/general.css" rel="stylesheet" type="text/css" />
+<link href="application/views/admin/styles/main.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<h1>
+<span class="action-span"><a href="index.php?p=admin&c=category&a=add">添加分类</a></span>
+<span class="action-span1"><a href="index.php?p=admin&c=index&a=index">SHOP 管理中心</a> </span><span id="search_id" class="action-span1"> - 商品分类 </span>
+<div style="clear:both"></div>
+</h1>
+
+<form method="post" action="" name="listForm">
+<!-- start ad position list -->
+	<div class="list-div" id="listDiv">
+		<table width="100%" cellspacing="1" cellpadding="2" id="list-table">
+			<tbody>
+				<tr>
+					<th>分类名称</th>
+					<th>商品数量</th>
+					<th>数量单位</th>
+					<th>导航栏</th>
+					<th>是否显示</th>
+					<th>价格分级</th>
+					<th>排序</th>
+					<th>操作</th>
+				</tr>
+                <?php foreach($cats as $cat) :?>
+                <tr align="center" class="<?php echo $cat['level'];?>" id="<?php echo $cat['level'];?>_<?php echo $cat['cat_id'];?>">
+					<td align="left" class="first-cell">
+                        <?php echo str_repeat("&nbsp;&nbsp;&nbsp;", $cat['level']);?>
+						<img src="application/views/admin/images/menu_minus.gif" id="icon_<?php echo $cat['level'];?>_<?php echo $cat['cat_id'];?>" width="9" height="9" border="0" style="margin-left:0em" onclick="rowClicked(this)">
+						<span><a href="goods.php?act=list&amp;cat_id=1"><?php echo $cat['cat_name'];?></a></span>
+					 </td>
+					<td width="10%">0</td>
+					<td width="10%">
+                        <span onclick="listTable.edit(this, 'edit_measure_unit', 1)" title="点击修改内容" style="">
+                            <?php echo $cat['unit'];?>
+                        </span>
+                    </td>
+					<td width="10%"><img src="application/views/admin/images/no.gif" onclick="listTable.toggle(this, 'toggle_show_in_nav', 1)"></td>
+					<td width="10%"><img src="application/views/admin/images/yes.gif" onclick="listTable.toggle(this, 'toggle_is_show', 1)"></td>
+					<td>
+                        <span onclick="listTable.edit(this, 'edit_grade', 1)" title="点击修改内容" style="">
+                            5
+                        </span>
+                    </td>
+					<th width="10%" align="right">
+                        <span onclick="listTable.edit(this, 'edit_sort_order', 1)" title="点击修改内容" style="">
+                            <?php echo $cat['sort_order'];?>
+                        </span>
+                    </th>
+					<td width="24%" align="center">
+						<a href="category.php?act=move&amp;cat_id=1">转移商品</a> |
+						<a href="category.php?act=edit&amp;cat_id=1">编辑</a> |
+						<a href="javascript:;" onclick="listTable.remove(1, '您确认要删除这条记录吗?')" title="移除">移除</a>
+					</td>
+				</tr>
+                <?php endforeach ;?>
+	<!--  start 这些代码是显示使用，没有格式化 开发时可删除-->
+    <!--<tr align="center" class="1" id="1_5">-->
+    <!--<td align="left" class="first-cell" style="background-color: rgb(255, 255, 255);">-->
+            <!--<img src="application/views/admin/images/menu_minus.gif" id="icon_1_5" width="9" height="9" border="0" style="margin-left:1em" onclick="rowClicked(this)">-->
+            <!--<span><a href="goods.php?act=list&amp;cat_id=5">双模手机</a></span>-->
+        <!--</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);">2</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_measure_unit', 5)">&lt;!&ndash;  &ndash;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!&ndash;  &ndash;&gt;</span></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/no.gif" onclick="listTable.toggle(this, 'toggle_show_in_nav', 5)"></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/yes.gif" onclick="listTable.toggle(this, 'toggle_is_show', 5)"></td>-->
+    <!--<td style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_grade', 5)">5</span></td>-->
+    <!--<td width="10%" align="right" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_sort_order', 5)">50</span></td>-->
+    <!--<td width="24%" align="center" style="background-color: rgb(255, 255, 255);">-->
+      <!--<a href="category.php?act=move&amp;cat_id=5">转移商品</a> |-->
+      <!--<a href="category.php?act=edit&amp;cat_id=5">编辑</a> |-->
+      <!--<a href="javascript:;" onclick="listTable.remove(5, '您确认要删除这条记录吗?')" title="移除">移除</a>-->
+    <!--</td>-->
+  <!--</tr>-->
+    <!--<tr align="center" class="1" id="1_2">-->
+    <!--<td align="left" class="first-cell" style="background-color: rgb(255, 255, 255);">-->
+            <!--<img src="application/views/admin/images/menu_minus.gif" id="icon_1_2" width="9" height="9" border="0" style="margin-left:1em" onclick="rowClicked(this)">-->
+            <!--<span><a href="goods.php?act=list&amp;cat_id=2">CDMA手机</a></span>-->
+        <!--</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);">0</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_measure_unit', 2)" title="点击修改内容" style="">&lt;!&ndash;  &ndash;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!&ndash;  &ndash;&gt;</span></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/no.gif" onclick="listTable.toggle(this, 'toggle_show_in_nav', 2)"></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/yes.gif" onclick="listTable.toggle(this, 'toggle_is_show', 2)"></td>-->
+    <!--<td style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_grade', 2)">0</span></td>-->
+    <!--<td width="10%" align="right" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_sort_order', 2)">50</span></td>-->
+    <!--<td width="24%" align="center" style="background-color: rgb(255, 255, 255);">-->
+      <!--<a href="category.php?act=move&amp;cat_id=2">转移商品</a> |-->
+      <!--<a href="category.php?act=edit&amp;cat_id=2">编辑</a> |-->
+      <!--<a href="javascript:;" onclick="listTable.remove(2, '您确认要删除这条记录吗?')" title="移除">移除</a>-->
+    <!--</td>-->
+  <!--</tr>-->
+    <!--<tr align="center" class="1" id="1_3">-->
+    <!--<td align="left" class="first-cell" style="background-color: rgb(255, 255, 255);">-->
+            <!--<img src="application/views/admin/images/menu_minus.gif" id="icon_1_3" width="9" height="9" border="0" style="margin-left:1em" onclick="rowClicked(this)">-->
+            <!--<span><a href="goods.php?act=list&amp;cat_id=3">GSM手机</a></span>-->
+        <!--</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);">12</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_measure_unit', 3)" title="点击修改内容" style="">&lt;!&ndash;  &ndash;&gt;台&lt;!&ndash;  &ndash;&gt;</span></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/yes.gif" onclick="listTable.toggle(this, 'toggle_show_in_nav', 3)"></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/yes.gif" onclick="listTable.toggle(this, 'toggle_is_show', 3)"></td>-->
+    <!--<td style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_grade', 3)">4</span></td>-->
+    <!--<td width="10%" align="right" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_sort_order', 3)">50</span></td>-->
+    <!--<td width="24%" align="center" style="background-color: rgb(255, 255, 255);">-->
+      <!--<a href="category.php?act=move&amp;cat_id=3">转移商品</a> |-->
+      <!--<a href="category.php?act=edit&amp;cat_id=3">编辑</a> |-->
+      <!--<a href="javascript:;" onclick="listTable.remove(3, '您确认要删除这条记录吗?')" title="移除">移除</a>-->
+    <!--</td>-->
+  <!--</tr>-->
+    <!--<tr align="center" class="1" id="1_4">-->
+    <!--<td align="left" class="first-cell" style="background-color: rgb(255, 255, 255);">-->
+            <!--<img src="application/views/admin/images/menu_minus.gif" id="icon_1_4" width="9" height="9" border="0" style="margin-left:1em" onclick="rowClicked(this)">-->
+            <!--<span><a href="goods.php?act=list&amp;cat_id=4">3G手机</a></span>-->
+        <!--</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);">2</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_measure_unit', 4)" title="点击修改内容" style="">&lt;!&ndash;  &ndash;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!&ndash;  &ndash;&gt;</span></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/yes.gif" onclick="listTable.toggle(this, 'toggle_show_in_nav', 4)"></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/yes.gif" onclick="listTable.toggle(this, 'toggle_is_show', 4)"></td>-->
+    <!--<td style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_grade', 4)">0</span></td>-->
+    <!--<td width="10%" align="right" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_sort_order', 4)">50</span></td>-->
+    <!--<td width="24%" align="center" style="background-color: rgb(255, 255, 255);">-->
+      <!--<a href="category.php?act=move&amp;cat_id=4">转移商品</a> |-->
+      <!--<a href="category.php?act=edit&amp;cat_id=4">编辑</a> |-->
+      <!--<a href="javascript:;" onclick="listTable.remove(4, '您确认要删除这条记录吗?')" title="移除">移除</a>-->
+    <!--</td>-->
+  <!--</tr>-->
+    <!--<tr align="center" class="0" id="0_12">-->
+    <!--<td align="left" class="first-cell" style="background-color: rgb(255, 255, 255);">-->
+            <!--<img src="application/views/admin/images/menu_minus.gif" id="icon_0_12" width="9" height="9" border="0" style="margin-left:0em" onclick="rowClicked(this)">-->
+            <!--<span><a href="goods.php?act=list&amp;cat_id=12">充值卡</a></span>-->
+        <!--</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);">0</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_measure_unit', 12)" title="点击修改内容" style="">&lt;!&ndash;  &ndash;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!&ndash;  &ndash;&gt;</span></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/no.gif" onclick="listTable.toggle(this, 'toggle_show_in_nav', 12)"></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/yes.gif" onclick="listTable.toggle(this, 'toggle_is_show', 12)"></td>-->
+    <!--<td style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_grade', 12)">0</span></td>-->
+    <!--<td width="10%" align="right" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_sort_order', 12)">50</span></td>-->
+    <!--<td width="24%" align="center" style="background-color: rgb(255, 255, 255);">-->
+      <!--<a href="category.php?act=move&amp;cat_id=12">转移商品</a> |-->
+      <!--<a href="category.php?act=edit&amp;cat_id=12">编辑</a> |-->
+      <!--<a href="javascript:;" onclick="listTable.remove(12, '您确认要删除这条记录吗?')" title="移除">移除</a>-->
+    <!--</td>-->
+  <!--</tr>-->
+    <!--<tr align="center" class="1" id="1_15">-->
+    <!--<td align="left" class="first-cell" style="background-color: rgb(255, 255, 255);">-->
+            <!--<img src="application/views/admin/images/menu_minus.gif" id="icon_1_15" width="9" height="9" border="0" style="margin-left:1em" onclick="rowClicked(this)">-->
+            <!--<span><a href="goods.php?act=list&amp;cat_id=15">联通手机充值卡</a></span>-->
+        <!--</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);">2</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_measure_unit', 15)">&lt;!&ndash;  &ndash;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!&ndash;  &ndash;&gt;</span></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/no.gif" onclick="listTable.toggle(this, 'toggle_show_in_nav', 15)"></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/yes.gif" onclick="listTable.toggle(this, 'toggle_is_show', 15)"></td>-->
+    <!--<td style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_grade', 15)">0</span></td>-->
+    <!--<td width="10%" align="right" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_sort_order', 15)">50</span></td>-->
+    <!--<td width="24%" align="center" style="background-color: rgb(255, 255, 255);">-->
+      <!--<a href="category.php?act=move&amp;cat_id=15">转移商品</a> |-->
+      <!--<a href="category.php?act=edit&amp;cat_id=15">编辑</a> |-->
+      <!--<a href="javascript:;" onclick="listTable.remove(15, '您确认要删除这条记录吗?')" title="移除">移除</a>-->
+    <!--</td>-->
+  <!--</tr>-->
+    <!--<tr align="center" class="1" id="1_13">-->
+    <!--<td align="left" class="first-cell" style="background-color: rgb(255, 255, 255);">-->
+            <!--<img src="application/views/admin/images/menu_minus.gif" id="icon_1_13" width="9" height="9" border="0" style="margin-left:1em" onclick="rowClicked(this)">-->
+            <!--<span><a href="goods.php?act=list&amp;cat_id=13">小灵通/固话充值卡</a></span>-->
+        <!--</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);">2</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_measure_unit', 13)">&lt;!&ndash;  &ndash;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!&ndash;  &ndash;&gt;</span></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/no.gif" onclick="listTable.toggle(this, 'toggle_show_in_nav', 13)"></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/yes.gif" onclick="listTable.toggle(this, 'toggle_is_show', 13)"></td>-->
+    <!--<td style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_grade', 13)">0</span></td>-->
+    <!--<td width="10%" align="right" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_sort_order', 13)">50</span></td>-->
+    <!--<td width="24%" align="center" style="background-color: rgb(255, 255, 255);">-->
+      <!--<a href="category.php?act=move&amp;cat_id=13">转移商品</a> |-->
+      <!--<a href="category.php?act=edit&amp;cat_id=13">编辑</a> |-->
+      <!--<a href="javascript:;" onclick="listTable.remove(13, '您确认要删除这条记录吗?')" title="移除">移除</a>-->
+    <!--</td>-->
+  <!--</tr>-->
+    <!--<tr align="center" class="1" id="1_14">-->
+    <!--<td align="left" class="first-cell" style="background-color: rgb(255, 255, 255);">-->
+            <!--<img src="application/views/admin/images/menu_minus.gif" id="icon_1_14" width="9" height="9" border="0" style="margin-left:1em" onclick="rowClicked(this)">-->
+            <!--<span><a href="goods.php?act=list&amp;cat_id=14">移动手机充值卡</a></span>-->
+        <!--</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);">2</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_measure_unit', 14)">&lt;!&ndash;  &ndash;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!&ndash;  &ndash;&gt;</span></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/no.gif" onclick="listTable.toggle(this, 'toggle_show_in_nav', 14)"></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/yes.gif" onclick="listTable.toggle(this, 'toggle_is_show', 14)"></td>-->
+    <!--<td style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_grade', 14)">0</span></td>-->
+    <!--<td width="10%" align="right" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_sort_order', 14)">50</span></td>-->
+    <!--<td width="24%" align="center" style="background-color: rgb(255, 255, 255);">-->
+      <!--<a href="category.php?act=move&amp;cat_id=14">转移商品</a> |-->
+      <!--<a href="category.php?act=edit&amp;cat_id=14">编辑</a> |-->
+      <!--<a href="javascript:;" onclick="listTable.remove(14, '您确认要删除这条记录吗?')" title="移除">移除</a>-->
+    <!--</td>-->
+  <!--</tr>-->
+    <!--<tr align="center" class="0" id="0_6">-->
+    <!--<td align="left" class="first-cell" style="background-color: rgb(255, 255, 255);">-->
+            <!--<img src="application/views/admin/images/menu_minus.gif" id="icon_0_6" width="9" height="9" border="0" style="margin-left:0em" onclick="rowClicked(this)">-->
+            <!--<span><a href="goods.php?act=list&amp;cat_id=6">手机配件</a></span>-->
+        <!--</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);">0</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_measure_unit', 6)">&lt;!&ndash;  &ndash;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!&ndash;  &ndash;&gt;</span></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/yes.gif" onclick="listTable.toggle(this, 'toggle_show_in_nav', 6)"></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/yes.gif" onclick="listTable.toggle(this, 'toggle_is_show', 6)"></td>-->
+    <!--<td style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_grade', 6)">0</span></td>-->
+    <!--<td width="10%" align="right" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_sort_order', 6)">50</span></td>-->
+    <!--<td width="24%" align="center" style="background-color: rgb(255, 255, 255);">-->
+      <!--<a href="category.php?act=move&amp;cat_id=6">转移商品</a> |-->
+      <!--<a href="category.php?act=edit&amp;cat_id=6">编辑</a> |-->
+      <!--<a href="javascript:;" onclick="listTable.remove(6, '您确认要删除这条记录吗?')" title="移除">移除</a>-->
+    <!--</td>-->
+  <!--</tr>-->
+    <!--<tr align="center" class="1" id="1_8">-->
+    <!--<td align="left" class="first-cell" style="background-color: rgb(255, 255, 255);">-->
+            <!--<img src="application/views/admin/images/menu_minus.gif" id="icon_1_8" width="9" height="9" border="0" style="margin-left:1em" onclick="rowClicked(this)">-->
+            <!--<span><a href="goods.php?act=list&amp;cat_id=8">耳机</a></span>-->
+        <!--</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);">3</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_measure_unit', 8)">&lt;!&ndash;  &ndash;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!&ndash;  &ndash;&gt;</span></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/no.gif" onclick="listTable.toggle(this, 'toggle_show_in_nav', 8)"></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/yes.gif" onclick="listTable.toggle(this, 'toggle_is_show', 8)"></td>-->
+    <!--<td style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_grade', 8)">0</span></td>-->
+    <!--<td width="10%" align="right" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_sort_order', 8)">50</span></td>-->
+    <!--<td width="24%" align="center" style="background-color: rgb(255, 255, 255);">-->
+      <!--<a href="category.php?act=move&amp;cat_id=8">转移商品</a> |-->
+      <!--<a href="category.php?act=edit&amp;cat_id=8">编辑</a> |-->
+      <!--<a href="javascript:;" onclick="listTable.remove(8, '您确认要删除这条记录吗?')" title="移除">移除</a>-->
+    <!--</td>-->
+  <!--</tr>-->
+    <!--<tr align="center" class="1" id="1_9">-->
+    <!--<td align="left" class="first-cell" style="background-color: rgb(255, 255, 255);">-->
+            <!--<img src="application/views/admin/images/menu_minus.gif" id="icon_1_9" width="9" height="9" border="0" style="margin-left:1em" onclick="rowClicked(this)">-->
+            <!--<span><a href="goods.php?act=list&amp;cat_id=9">电池</a></span>-->
+        <!--</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);">0</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_measure_unit', 9)">&lt;!&ndash;  &ndash;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!&ndash;  &ndash;&gt;</span></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/no.gif" onclick="listTable.toggle(this, 'toggle_show_in_nav', 9)"></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/yes.gif" onclick="listTable.toggle(this, 'toggle_is_show', 9)"></td>-->
+    <!--<td style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_grade', 9)">0</span></td>-->
+    <!--<td width="10%" align="right" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_sort_order', 9)">50</span></td>-->
+    <!--<td width="24%" align="center" style="background-color: rgb(255, 255, 255);">-->
+      <!--<a href="category.php?act=move&amp;cat_id=9">转移商品</a> |-->
+      <!--<a href="category.php?act=edit&amp;cat_id=9">编辑</a> |-->
+      <!--<a href="javascript:;" onclick="listTable.remove(9, '您确认要删除这条记录吗?')" title="移除">移除</a>-->
+    <!--</td>-->
+  <!--</tr>-->
+    <!--<tr align="center" class="1" id="1_11">-->
+    <!--<td align="left" class="first-cell" style="background-color: rgb(255, 255, 255);">-->
+            <!--<img src="application/views/admin/images/menu_minus.gif" id="icon_1_11" width="9" height="9" border="0" style="margin-left:1em" onclick="rowClicked(this)">-->
+            <!--<span><a href="goods.php?act=list&amp;cat_id=11">读卡器和内存卡</a></span>-->
+        <!--</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);">2</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_measure_unit', 11)">&lt;!&ndash;  &ndash;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!&ndash;  &ndash;&gt;</span></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/no.gif" onclick="listTable.toggle(this, 'toggle_show_in_nav', 11)"></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/yes.gif" onclick="listTable.toggle(this, 'toggle_is_show', 11)"></td>-->
+    <!--<td style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_grade', 11)">0</span></td>-->
+    <!--<td width="10%" align="right" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_sort_order', 11)">50</span></td>-->
+    <!--<td width="24%" align="center" style="background-color: rgb(255, 255, 255);">-->
+      <!--<a href="category.php?act=move&amp;cat_id=11">转移商品</a> |-->
+      <!--<a href="category.php?act=edit&amp;cat_id=11">编辑</a> |-->
+      <!--<a href="javascript:;" onclick="listTable.remove(11, '您确认要删除这条记录吗?')" title="移除">移除</a>-->
+    <!--</td>-->
+  <!--</tr>-->
+    <!--<tr align="center" class="1" id="1_7">-->
+    <!--<td align="left" class="first-cell" style="background-color: rgb(255, 255, 255);">-->
+            <!--<img src="application/views/admin/images/menu_minus.gif" id="icon_1_7" width="9" height="9" border="0" style="margin-left:1em" onclick="rowClicked(this)">-->
+            <!--<span><a href="goods.php?act=list&amp;cat_id=7">充电器</a></span>-->
+        <!--</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);">0</td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_measure_unit', 7)">&lt;!&ndash;  &ndash;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!&ndash;  &ndash;&gt;</span></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/no.gif" onclick="listTable.toggle(this, 'toggle_show_in_nav', 7)"></td>-->
+    <!--<td width="10%" style="background-color: rgb(255, 255, 255);"><img src="application/views/admin/images/yes.gif" onclick="listTable.toggle(this, 'toggle_is_show', 7)"></td>-->
+    <!--<td style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_grade', 7)">0</span></td>-->
+    <!--<td width="10%" align="right" style="background-color: rgb(255, 255, 255);"><span onclick="listTable.edit(this, 'edit_sort_order', 7)">50</span></td>-->
+    <!--<td width="24%" align="center" style="background-color: rgb(255, 255, 255);">-->
+      <!--<a href="category.php?act=move&amp;cat_id=7">转移商品</a> |-->
+      <!--<a href="category.php?act=edit&amp;cat_id=7">编辑</a> |-->
+      <!--<a href="javascript:;" onclick="listTable.remove(7, '您确认要删除这条记录吗?')" title="移除">移除</a>-->
+    <!--</td>-->
+  <!--</tr>-->
+  	<!--  end这些代码是显示使用，没有格式化 开发时可删除-->
+	</tbody>
+  </table>
+</div>
+</form>
+
+  </table>
+</div>
+</form>
+
+
+<div id="footer">
+	版权所有 &copy; 2012-2013 传智播客 - PHP培训 - </div>
+</div>
+ <script>
+	/**
+ * 折叠分类列表
+ */
+var imgPlus = new Image();
+imgPlus.src = "application/views/admin/images/menu_plus.gif";
+
+function rowClicked(obj)
+{
+  // 当前图像
+  img = obj;
+  // 取得上二级tr>td>img对象
+  obj = obj.parentNode.parentNode;
+  // 整个分类列表表格
+  var tbl = document.getElementById("list-table");
+  // 当前分类级别
+  var lvl = parseInt(obj.className);
+  // 是否找到元素
+  var fnd = false;
+  var sub_display = img.src.indexOf('menu_minus.gif') > 0 ? 'none' : 'table-row' ;
+  // 遍历所有的分类
+  for (i = 0; i < tbl.rows.length; i++)
+  {
+      var row = tbl.rows[i];
+      if (row == obj)
+      {
+          // 找到当前行
+          fnd = true;
+          //document.getElementById('result').innerHTML += 'Find row at ' + i +"<br/>";
+      }
+      else
+      {
+          if (fnd == true)
+          {
+              var cur = parseInt(row.className);
+              var icon = 'icon_' + row.id;
+              if (cur > lvl)
+              {
+                  row.style.display = sub_display;
+                  if (sub_display != 'none')
+                  {
+                      var iconimg = document.getElementById(icon);
+                      iconimg.src = iconimg.src.replace('plus.gif', 'minus.gif');
+                  }
+              }
+              else
+              {
+                  fnd = false;
+                  break;
+              }
+          }
+      }
+  }
+
+  for (i = 0; i < obj.cells[0].childNodes.length; i++)
+  {
+      var imgObj = obj.cells[0].childNodes[i];
+      if (imgObj.tagName == "IMG" && imgObj.src != 'application/views/admin/images/menu_arrow.gif')
+      {
+          imgObj.src = (imgObj.src == imgPlus.src) ? 'application/views/admin/images/menu_minus.gif' : imgPlus.src;
+      }
+  }
+}
+</script>
+</body>
+</html>

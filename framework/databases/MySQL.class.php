@@ -24,7 +24,7 @@ class MySQL
         $port = isset($config['port'])? $config['port'] : '3306';
         $charset = isset($config['charset'])? $config['charset'] : 'utf8';
 
-        $this->link = mysql_connect("$host:$port",$user,$password) or die('数据库连接错误');
+        $this->link = @mysql_connect("$host:$port",$user,$password) or die('数据库连接错误');
         mysql_select_db($dbname) or die('数据库选择错误');
         $this->setChar($charset);
     }

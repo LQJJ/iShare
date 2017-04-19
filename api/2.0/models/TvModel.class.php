@@ -131,7 +131,7 @@ class TvModel extends Model
             return $this->db->getRows($sql);
         }else{// 91
 
-            $url = 'http://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['SCRIPT_NAME'])."?c=tv&a=channel";
+            $url = 'http://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['SCRIPT_NAME'])."?c=tv&a=channel&debug=9";
 
             $array = file_get_contents($url);
             $array = json_decode($array,true);

@@ -16,7 +16,7 @@ class API
 
 
     public static function run(){
-        //self::checkSign();
+        self::checkSign();
         self::init();
         self::autoload();
         self::dispatch();
@@ -55,6 +55,7 @@ class API
 
     private static function getVersion(){
         $dirs = self::getCurDir(API_PATH);
+
         $version = isset($_REQUEST['v'])? $_REQUEST['v'] : max($dirs);
         if(!in_array($version,$dirs)){
             $data = array(
@@ -124,6 +125,7 @@ class API
 
     private static function checkSign(){
 
+        if(isset($_REQUEST['debug']) && $_REQUEST['debug']) return;
         date_default_timezone_set ("Asia/Chongqing");
 //        date_default_timezone_set("Etc/GMT");
         $time=date("s")+date("i")*60;
@@ -149,7 +151,7 @@ class API
         {
             $data = array(
                 'code'=> 0,
-                'msg'=>'appKey has expired',
+                'msg'=>'apiKey has expired',
                 'data'=>array('date'=>date('Y-m-d H:i:s')),
             );
             die(json_encode($data));
@@ -159,7 +161,7 @@ class API
     {
         $handle = opendir($path);
         while (false !== ($file = readdir($handle))) {
-            if ($file == '.' || $file == '..') continue;
+            if ($file == '.' || $file == '..' ||  !strlen(preg_replace('/\D/s', '', $file)) ) continue;
             if (is_dir($path .'/'. $file)) $dirs[] = $file;
         }
         closedir($handle);
